@@ -1,58 +1,149 @@
 import styled  from "styled-components";
 
-export const Container = styled.div`
-    width: 100vw;
+export const HomeContainer = styled.div`
+    display: flex;
+    background: #17181C; 
+    
+`;
+
+export const HomeNav = styled.nav`
+    width: 24.3%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    border: 2px solid #2E2F36;
+    background: #1E1F23;
+
+    @media screen and (max-width: 900px){
+        display: none;
+    }
+`;
+export const HomeLogo = styled.img`
+    width: 68.5%;
+    margin: 0 auto;
+
+`
+
+export const HomeMain = styled.div`
+    border: 2px solid #2E2F36;
+    width: 75.7%;
+    margin-left: 24.4%;
+
+    @media screen and (max-width: 900px){
+        width: 100%;
+        margin-left: 0;
+    }
+    
+`;
+
+export const HomeHeader = styled.div`
+    width: 100%;
+    height: 73px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0% 36px;
+
+    border: 2px solid #2E2F36;
+    border-left: none;
+    background: #1E1F23;
+`;
+export const HomeTitle = styled.p`
+    color: ${({theme})=>theme.textTitle};
+    align-items: center;
+    img{
+        margin-right: 18px;
+    }
+`;
+
+export const HomeIcon = styled.img`
+
+`;
+
+export const HomeUser = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    cursor: pointer;
+
+`;
+
+export const HomeSection = styled.div`
+    
+    width: 100%;
     display: flex;
 
-    nav{
-        border: 3px solid red;
-
-        width: 24.3%;
-    }
-
-    main{
-        border: 3px solid green;
-        width: 75.7%;
-    }
-
-    header{
-        border: 2px solid blue;
-        height: 73px;
-    }
-
-    section {
-        width: 100% ;
-
-        display: flex;
-    }
-
-    .posts{
-        width: 75%;
-    }
-
-    .write-field{
-        border: 2px solid yellow;
-        width: 710px;
-        height: 120px;
-        margin: 36px auto;
-    }
-
-    .post{
-        border: 2px solid yellow;
-        width: 710px;
-        height: 709px;
-        margin: 36px auto;
-    }
-
     .topics{
-        width: 25%;
+        width: 24.9%;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+        margin: 36px 36px 0 0;
+        
+    }
+
+    @media screen and (max-width: 1000px){
+        .topics {
+            display: none;
+        }
     }
 
     .trend{
-        border: 2px solid yellow;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid #2E2F36;
+        background: #1E1F23;
+        border-radius: 16px;
+        padding: 24px 20px;
 
-        width: 272px;
-        height: 272px;
-        margin: 36px auto;
+
+        width: 100%;
+        height: 272px;        
     }
-`
+    .trend-title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 29px;
+
+        >p{
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            color: #FFFFFF;            
+        }
+
+        >img{
+            width: 15px;
+            height: 7.5px;
+            cursor: pointer;
+        }
+    }
+
+    .trend-friends{
+        margin-bottom: 16px;
+        >img{
+            width: 32px;
+        }
+        >p{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 21px;
+            color: #FFFFFF;
+        }
+    }
+`;
+
+export const HomePosts = styled.div`
+    display: flex;
+    flex-direction: column;
+    width:65.3%;
+    margin: 36px 36px;
+    gap: 36px;
+
+    @media screen and (max-width: 1000px){
+        width: 100%;
+    }
+`;
