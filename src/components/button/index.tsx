@@ -13,7 +13,7 @@ export function Button( props:Iprops ) {
             type="submit"
             onClick={props.onClick}
         >
-               {props.Text}       
+            {props.Text}       
         </Buttons>
     ); 
 }   

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PublishContainer = styled.div`
-     display: flex;
+    display: flex;
     flex-direction: column;
     border: 2px solid #2E2F36;
     background: #1E1F23;

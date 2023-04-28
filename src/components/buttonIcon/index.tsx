@@ -1,12 +1,12 @@
 import { ButtonIconContainer,
         ButtonIconImage,
- } from "./styled";
+} from "./styled";
 
- interface Iprops{
+interface Iprops{
     src: string;
     alt: string;
 
- }
+}
 
 export function ButtonIcon(props:Iprops){
     return(

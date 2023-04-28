@@ -12,7 +12,7 @@ import { Post,
         PostComments,
         PostLine,
         PostTextComments,
- } from "./styled";
+} from "./styled";
 import { User } from "../user";
 import Photo from "../../assets/photoProfile.jpg"
 import ImagePost from "../../assets/imagePost.png"

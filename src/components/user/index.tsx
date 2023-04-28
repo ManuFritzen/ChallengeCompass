@@ -1,6 +1,6 @@
 import { UserContainer,
         UserImage,
- } from "./styled";
+} from "./styled";
 
 interface Iprops{
     textLeft?: string;
