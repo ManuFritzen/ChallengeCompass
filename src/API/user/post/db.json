@@ -1,8 +1,7 @@
-{
-    "posts": [
+[
         {
             "user": "anairschlinger",
-            "post date": "2023-04-22T10:15:00",
+            "post_date": "2023-04-22T10:15:00",
             "description": "A primavera chegou! 🌺",
             "likes": 8,
             "comments": [
@@ -15,7 +14,7 @@
                     "comment": "Que flores maravilhosas! 🌷" 
                 }
             ],
-            "url_imagem": "https://exemplo.com/imagens/ana1.jpg"
+            "url_imagem": "https://i.pinimg.com/550x/90/e7/ef/90e7ef3d2d5a82200197653368eb51fe.jpg"
         },
         {
             "user": "camilabarcellos",
@@ -48,7 +47,7 @@
                 "comment": "Aproveita aí, Dener! 😎" 
                 }
             ],
-            "url_imagem": "https://exemplo.com/imagens/dener1.jpg"
+            "url_imagem": "https://burst.shopifycdn.com/photos/beautiful-day-at-the-beach.jpg?width=1200&format=pjpg&exif=1&iptc=1"
         },
         {
             "user": "diegosuarez",
@@ -237,5 +236,4 @@
                 }
             ]
         }
-    ]
-}
+]

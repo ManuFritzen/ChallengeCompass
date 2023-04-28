@@ -17,11 +17,11 @@ import Photo from "../../assets/photoProfile.jpg"
 import { Publish } from "../../components/publish";
 import { PostUser  } from "../../components/postUser";
 import { User } from "../../components/user";
-
-
+import Registers from "../../api/user/post/db.json"
 
 
 export function Home(){
+
 
     return(
         <HomeContainer>
@@ -47,7 +47,19 @@ export function Home(){
             <HomeSection>
                 <HomePosts>
                     <Publish/>
-                    <PostUser/>               
+                    {
+                        Registers.map( post => {
+                            return(
+                                <PostUser
+                                    user={post.user}
+                                    post_date={post.post_date}
+                                    description={post.description}
+                                    likes={post.likes}
+                                    image={post.url_imagem} 
+                                />
+                            )
+                        })
+                    }
 
 
                 </HomePosts>

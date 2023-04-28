@@ -15,12 +15,22 @@ import { Post,
 } from "./styled";
 import { User } from "../user";
 import Photo from "../../assets/photoProfile.jpg"
-import ImagePost from "../../assets/imagePost.png"
 import { ButtonIcon } from "../buttonIcon";
 import { InputTextArea } from "../inputTextArea";
 import Icons from "../../assets/icons/icons";
 
-export function PostUser(){
+interface Iprops{
+    user?: string;
+    post_date?: string;
+    description?: string;
+    likes?: number;
+    comentsUser?: string;
+    coments ?: [];
+    image?: string;
+
+}
+
+export function PostUser(props:Iprops){
     return(
         <Post>
             <UserPost>
@@ -29,19 +39,16 @@ export function PostUser(){
                     alt="Foto do usuário"
                 />
                 <UserName>
-                    <User textLeft="Patrícia Menezes"/>
+                    <User textLeft={props.user}/>
                     <PostTime>
-                        12 minutos atrás em Paisagem Exuberante
+                        {props.post_date}
                     </PostTime>
                 </UserName>                
             </UserPost>
             <PostText>
-                Minha última viagem para a Ilha do Comendador, 
-                um lugar simplesmente incrível, 
-                natureza praticamente intocada. 
-                Recomendo a todos que apreciam o mundo como ele é.
+                {props.description}
             </PostText>
-            <PostImage src={ImagePost} />
+            <PostImage src={props.image} />
             <PostButtons>
                 <PostButton>
                     <ButtonIcon 
@@ -99,7 +106,8 @@ export function PostUser(){
                 Todos os comentários
             </PostText>
             <PostComments>
-
+                {props.user + ":"} 
+                {props.coments}
             </PostComments>
             <PostLine/>
             <PostTextComments >
