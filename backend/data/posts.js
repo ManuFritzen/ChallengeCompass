@@ -1,4 +1,4 @@
-[
+const posts = [
         {
             "user": "anairschlinger",
             "post_date": "2023-04-22T10:15:00",
@@ -15,6 +15,7 @@
                 }
             ],
             "url_imagem": "https://i.pinimg.com/550x/90/e7/ef/90e7ef3d2d5a82200197653368eb51fe.jpg"
+            
         },
         {
             "user": "camilabarcellos",
@@ -31,10 +32,11 @@
                 "comment": "Adorei a resenha, vou ler também!  📖"
                 }
             ]
+
         },
         {
             "user": "denerborges",
-            "post date": "2023-04-19T12:00:00",
+            "post_date": "2023-04-19T12:00:00",
             "description": "Praia no outono é tudo de bom!  🌊🍂",
             "likes": 20,
             "comments": [
@@ -51,13 +53,13 @@
         },
         {
             "user": "diegosuarez",
-            "post date": "2023-04-18T14:45:00",
+            "post_date": "2023-04-18T14:45:00",
             "description": "Mais um dia de trabalho concluído! 💻 " ,
             "likes": 6
         },
         {
             "user": "emanuellescortegagna",
-            "post date": "2023-04-17T09:30:00",
+            "post_date": "2023-04-17T09:30:00",
             "description": "Bom dia pessoal! ☀️"  ,
             "likes": 15,
             "comments": [
@@ -237,3 +239,7 @@
             ]
         }
 ]
+
+module.exports = {posts};
+
+

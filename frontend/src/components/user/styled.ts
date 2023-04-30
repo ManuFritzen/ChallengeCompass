@@ -1,6 +1,16 @@
 import styled from "styled-components";
 
 export const UserContainer = styled.div`
+    .friends{
+        margin-bottom: 16px;
+    }
+    
+    .imgFriends{
+        width: 32px;
+    }
+`;
+
+export const UserContent = styled.div`
     display: flex;
     align-items: center;
     gap: 18px;
@@ -9,7 +19,7 @@ export const UserContainer = styled.div`
     font-size: 14px;
     line-height: 21px;
     color: ${({theme})=>theme.textTitle};
-`;
+`; 
 
 export const UserImage = styled.img`
     width: 42px;

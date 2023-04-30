@@ -9,12 +9,16 @@ export const Post = styled.div`
     border-radius: 16px;
     width: 100%;
     padding-bottom: 16px;
+
+    .notImage{
+        display: none;
+    }
 `;
 
 export const UserPost = styled.div`
     padding: 16px 16px 0;
     display: flex;
-    gap: 16px;
+    gap: 16px;  
 
 `;
 
@@ -39,7 +43,7 @@ export const PostText = styled.p`
 
 export const PostImage = styled.img`
     width: 100%;
-    height: 300px;
+    height: 300px;   
 `;
 
 export const PostButtons = styled.div`

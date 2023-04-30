@@ -11,11 +11,15 @@ import Photo from "../../assets/photoProfile.jpg";
 import { InputTextArea } from "../inputTextArea";
 import { ButtonIcon } from "../buttonIcon";
 
-export function Publish(){
+interface Iprops{
+    userPhoto: string;
+}
+
+export function Publish(props: Iprops){
     return(
         <PublishContainer>
         <PublishUserText>
-            <PublishUserImage src={Photo} alt="" />
+            <PublishUserImage src={props.userPhoto} alt="" />
             <InputTextArea
                 value=""
                 placeholder="No que você está pensando?"

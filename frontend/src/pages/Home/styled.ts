@@ -62,14 +62,6 @@ export const HomeIcon = styled.img`
 
 `;
 
-export const HomeUser = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    cursor: pointer;
-
-`;
-
 export const HomeSection = styled.div`
     
     width: 100%;
@@ -97,11 +89,14 @@ export const HomeSection = styled.div`
         background: #1E1F23;
         border-radius: 16px;
         padding: 24px 20px;
-
-
+        
         width: 100%;
-        height: 272px;        
+        height: 272px;
+        overflow-y: scroll;     
     }
+    .trend::-webkit-scrollbar{
+        display: none;
+    }   
     .trend-title{
         display: flex;
         align-items: center;
@@ -122,17 +117,8 @@ export const HomeSection = styled.div`
         }
     }
 
-    .trend-friends{
-        margin-bottom: 16px;
-        >img{
-            width: 32px;
-        }
-        >p{
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 21px;
-            color: #FFFFFF;
-        }
+    .friends{
+        gap: 16px;
     }
 `;
 

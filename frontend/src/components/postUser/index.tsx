@@ -27,15 +27,18 @@ interface Iprops{
     comentsUser?: string;
     coments ?: [];
     image?: string;
+    classImage?: string;
+    imgUser?: string;
 
 }
 
 export function PostUser(props:Iprops){
+
     return(
         <Post>
             <UserPost>
                 <User                    
-                    src={Photo}
+                    src="https://i.pinimg.com/originals/10/bc/c6/10bcc67ea970d217b96c229b7e2ab316.png"
                     alt="Foto do usuário"
                 />
                 <UserName>
@@ -48,7 +51,7 @@ export function PostUser(props:Iprops){
             <PostText>
                 {props.description}
             </PostText>
-            <PostImage src={props.image} />
+            <PostImage  className={props.classImage} src={props.image} />
             <PostButtons>
                 <PostButton>
                     <ButtonIcon 
@@ -71,7 +74,7 @@ export function PostUser(props:Iprops){
                 </PostButton>
             </PostButtons>
             <PostComment>
-                <User src={Photo} alt="" />
+                <User src={props.imgUser} alt="" />
                 <InputTextArea
                     value=""
                     placeholder="O que você está pensando?"
