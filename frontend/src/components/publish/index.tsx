@@ -13,6 +13,11 @@ import { ButtonIcon } from "../buttonIcon";
 
 interface Iprops{
     userPhoto: string;
+    valueTextarea: string;
+    onchangeTextarea: any; 
+    onClick?: React.MouseEventHandler;
+
+
 }
 
 export function Publish(props: Iprops){
@@ -21,9 +26,10 @@ export function Publish(props: Iprops){
         <PublishUserText>
             <PublishUserImage src={props.userPhoto} alt="" />
             <InputTextArea
-                value=""
+                value={props.valueTextarea}
                 placeholder="No que você está pensando?"
                 type="textarea"
+                onChange={props.onchangeTextarea}
             />
         </PublishUserText>
         <PublishButtons>
@@ -49,7 +55,7 @@ export function Publish(props: Iprops){
                     alt={"Icone de um smile / emoji"} 
                 />
             </PublishContentIcons>
-            <PublishButtonPost type="submit">
+            <PublishButtonPost type="submit" onClick={props.onClick}>
                 Postar
             </PublishButtonPost>
         </PublishButtons>

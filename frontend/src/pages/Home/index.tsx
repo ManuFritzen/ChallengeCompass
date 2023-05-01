@@ -21,6 +21,7 @@ export function Home(){
     let userPhoto = window.sessionStorage.getItem("userPhoto");
     let userName = window.sessionStorage.getItem("userName");
     let userLogin = window.sessionStorage.getItem("userLogin");
+    const [textPost, setTextPost] = useState("");
     const [dataUser, setDataUser] = useState([]);
     const [dataPosts, setDataPosts] = useState([]);
 
@@ -44,6 +45,31 @@ export function Home(){
         RegistersPosts();
     }, []);
 
+    const PostNow: any[] = [];
+    
+    
+    function SubmitPost(e: { preventDefault: () => void; }){
+
+        if(textPost === ""){
+            alert("Não é permitido publicações vazias!");
+        } 
+
+        PostNow.unshift(
+            <PostUser
+                user={userName || ""}
+                post_date={""}
+                description={textPost}
+                image={"https://st4.depositphotos.com/14431644/20230/i/600/depositphotos_202309808-stock-photo-conceptual-hand-writing-showing-example.jpg"}
+                imgUser={userPhoto||""}
+                imgUserComments={userPhoto||""}
+            />
+        )
+
+        console.log(PostNow)
+        setTextPost("");
+
+        return PostNow;
+    }
 
 
 
@@ -72,8 +98,14 @@ export function Home(){
             <HomeSection>
                 <HomePosts>
                     <Publish
+                        valueTextarea={textPost}
+                        onchangeTextarea={(e: { target: { value: React.SetStateAction<string>; }; }) =>{ 
+                        setTextPost(e.target.value)}}
                         userPhoto={userPhoto || ""}
+                        onClick={SubmitPost}
                     />
+                    {PostNow.map(post => post)}
+
                     {dataPosts.map((post:{
                         user: string;
                         post_date: string;
@@ -90,8 +122,9 @@ export function Home(){
                                 description={post.description}
                                 likes={post.likes}
                                 image={post.url_imagem}
-                                imgUser={userPhoto || ""}
-                                classImage={""} 
+                                imgUser={"https://rlv.zcache.com.br/adesivo_redondo_cara_de_sorriso_branca_emoji-rb80d4e08c0f74f7780f36f989a0d3563_0ugmp_8byvr_644.jpg"}
+                                imgUserComments={userPhoto || ""}
+                                classImage={post.url_imagem===undefined? "notImage" :  ""} 
                             />      
                         )
                     })}
