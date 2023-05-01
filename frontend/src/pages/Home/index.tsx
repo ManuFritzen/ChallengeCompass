@@ -45,30 +45,39 @@ export function Home(){
         RegistersPosts();
     }, []);
 
-    const PostNow: any[] = [];
+    interface IPosts{
+        user: string | null;        
+        description: string;
+        image:string;
+        imgUser: string | null;
+        imgUserComments: string | null;
+
+    }
+
+    const [postNow, setPostNow] = useState<IPosts[]>([]);
+
     
     
     function SubmitPost(e: { preventDefault: () => void; }){
-
+        e.preventDefault();
         if(textPost === ""){
             alert("Não é permitido publicações vazias!");
         } 
 
-        PostNow.unshift(
-            <PostUser
-                user={userName || ""}
-                post_date={""}
-                description={textPost}
-                image={"https://st4.depositphotos.com/14431644/20230/i/600/depositphotos_202309808-stock-photo-conceptual-hand-writing-showing-example.jpg"}
-                imgUser={userPhoto||""}
-                imgUserComments={userPhoto||""}
-            />
-        )
+        const newPost =             
+            {
+                user: userName,
+                description: textPost,
+                image: "https://st4.depositphotos.com/14431644/20230/i/600/depositphotos_202309808-stock-photo-conceptual-hand-writing-showing-example.jpg",
+                imgUser: userPhoto,
+                imgUserComments: userPhoto,
+            }
+        ;
 
-        console.log(PostNow)
-        setTextPost("");
+        setTextPost("");        
+        setPostNow([newPost, ...postNow]);           
 
-        return PostNow;
+        console.log(postNow)
     }
 
 
@@ -104,7 +113,15 @@ export function Home(){
                         userPhoto={userPhoto || ""}
                         onClick={SubmitPost}
                     />
-                    {PostNow.map(post => post)}
+                    {postNow.map((post: IPosts) => (
+                        <PostUser
+                            user={post.user || ""}
+                            description={post.description}
+                            image={post.image}
+                            imgUser={post.imgUser || ""}
+
+                        />
+                    ))}
 
                     {dataPosts.map((post:{
                         user: string;
@@ -163,4 +180,8 @@ export function Home(){
         </HomeMain>
         </HomeContainer>
     )
+}
+
+function unshift(arg0: JSX.Element): React.SetStateAction<never[]> {
+    throw new Error('Function not implemented.');
 }

@@ -12,8 +12,7 @@ import { Register } from "../../pages/Register";
 const AppRoutes = () => {    
     
     return(
-        <Router>
-          
+        <Router>          
                 <Routes>
                     <Route path="/home" element = {<Home/>}/>
                     <Route path="/" element = {<Login/>}/>
