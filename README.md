@@ -4,7 +4,7 @@
 
 <h1 align="center">
   <img 
-    src="./frontend/assets/challenge02.gif"
+    src="./challenge02.gif"
   />
 </h1>
 
