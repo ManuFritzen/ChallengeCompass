@@ -34,6 +34,8 @@ export const PostTime = styled.p`
 `;
 
 export const PostText = styled.p`
+    display: flex;
+    word-wrap: break-word;
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;    
@@ -57,6 +59,22 @@ export const PostButtons = styled.div`
 `;
 export const PostButton = styled.div`
     display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const PostButtonText = styled.p`
+    color: #A1A3A7;
+`;
+
+export const PostButtonAmount = styled.div`
+    height: 14px;
+    background: #27282F;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 16px;
+    font-size: 8px;
+    color: #A1A3A7;
 `;
 
 export const PostComment = styled.div`
@@ -81,6 +99,11 @@ export const PostCommentIcons = styled.div`
 `;
 
 export const PostComments = styled.div`
+    display: flex;
+    margin: 0 16px;
+    gap: 16px;
+    color: white;
+    font-size: 11px;
 
 `;
 
@@ -96,4 +119,5 @@ export const PostTextComments = styled.p`
     color: #2D86FC;
     margin: 0 16px;
     text-align: center;
+    cursor: pointer;
 `;

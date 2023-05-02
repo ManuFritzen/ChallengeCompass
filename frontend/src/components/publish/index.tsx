@@ -28,7 +28,6 @@ export function Publish(props: Iprops){
             <InputTextArea
                 value={props.valueTextarea}
                 placeholder="No que você está pensando?"
-                type="textarea"
                 onChange={props.onchangeTextarea}
             />
         </PublishUserText>

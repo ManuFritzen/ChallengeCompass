@@ -8,6 +8,10 @@ export const UserContainer = styled.div`
     .imgFriends{
         width: 32px;
     }
+
+    .userComment{
+        width: 24px;
+    }
 `;
 
 export const UserContent = styled.div`

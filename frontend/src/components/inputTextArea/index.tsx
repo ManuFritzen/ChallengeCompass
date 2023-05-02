@@ -1,7 +1,6 @@
 import {InputText} from "./styled";
 
 interface Iprops {
-    type: React.HTMLInputTypeAttribute,
     placeholder: string,
     value: string,
     onChange?:any,
@@ -18,7 +17,6 @@ export function InputTextArea( props:Iprops){
         <InputText
             className={props.className}
             value={props.value}            
-            type={props.type}
             placeholder={props.placeholder}
             onChange={props.onChange}
             onFocus={props.onFocus}
