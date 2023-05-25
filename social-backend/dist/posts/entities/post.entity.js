@@ -9,41 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Post = void 0;
 const typeorm_1 = require("typeorm");
-const post_entity_1 = require("../../posts/entities/post.entity");
-let User = class User {
+const user_entity_1 = require("../../users/entities/user.entity");
+let Post = class Post {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Post.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 100 }),
+    __metadata("design:type", String)
+], Post.prototype, "description", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
+], Post.prototype, "url_image", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "birthdate", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => post_entity_1.Post, posts => posts.users),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, users => users.posts),
     __metadata("design:type", Array)
-], User.prototype, "posts", void 0);
-User = __decorate([
-    (0, typeorm_1.Entity)('users')
-], User);
-exports.User = User;
-//# sourceMappingURL=user.entity.js.map
+], Post.prototype, "users", void 0);
+Post = __decorate([
+    (0, typeorm_1.Entity)('posts')
+], Post);
+exports.Post = Post;
+//# sourceMappingURL=post.entity.js.map

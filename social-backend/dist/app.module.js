@@ -13,6 +13,8 @@ const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/entities/user.entity");
+const post_entity_1 = require("./posts/entities/post.entity");
+const posts_module_1 = require("./posts/posts.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -21,10 +23,11 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'sqlite',
                 database: 'database.db',
-                entities: [user_entity_1.User],
+                entities: [user_entity_1.User, post_entity_1.Post],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
+            posts_module_1.PostsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
