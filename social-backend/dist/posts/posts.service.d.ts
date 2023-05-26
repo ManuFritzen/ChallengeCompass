@@ -1,16 +1,23 @@
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
 export declare class PostsService {
     private postsRepository;
-    constructor(postsRepository: Repository<Post>);
+    private usersRepository;
+    constructor(postsRepository: Repository<Post>, usersRepository: Repository<User>);
     create(createPostDto: CreatePostDto): Promise<{
-        msg: string;
-        post: CreatePostDto & Post;
+        user: string;
+        decription: string;
+        likes: number;
+        url_image: string;
+        id: number;
+        post_date: Date;
+        description: string;
     }>;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updatePostDto: UpdatePostDto): string;
-    remove(id: number): string;
+    findAll(): Promise<Post[]>;
+    findOne(id: number): Promise<Post>;
+    update(id: number, dto: UpdatePostDto): Promise<Post & UpdatePostDto>;
+    delete(id: number): Promise<DeleteResult>;
 }

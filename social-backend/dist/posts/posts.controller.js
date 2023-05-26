@@ -33,8 +33,8 @@ let PostsController = class PostsController {
     update(id, updatePostDto) {
         return this.postsService.update(+id, updatePostDto);
     }
-    remove(id) {
-        return this.postsService.remove(+id);
+    delete(id) {
+        return this.postsService.delete(+id);
     }
 };
 __decorate([
@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -71,7 +71,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
-], PostsController.prototype, "remove", null);
+], PostsController.prototype, "delete", null);
 PostsController = __decorate([
     (0, common_1.Controller)('api/v1/posts'),
     __metadata("design:paramtypes", [posts_service_1.PostsService])

@@ -5,11 +5,16 @@ export declare class PostsController {
     private readonly postsService;
     constructor(postsService: PostsService);
     create(createPostDto: CreatePostDto): Promise<{
-        msg: string;
-        post: CreatePostDto & import("./entities/post.entity").Post;
+        user: string;
+        decription: string;
+        likes: number;
+        url_image: string;
+        id: number;
+        post_date: Date;
+        description: string;
     }>;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updatePostDto: UpdatePostDto): string;
-    remove(id: number): string;
+    findAll(): Promise<import("./entities/post.entity").Post[]>;
+    findOne(id: string): Promise<import("./entities/post.entity").Post>;
+    update(id: string, updatePostDto: UpdatePostDto): Promise<import("./entities/post.entity").Post & UpdatePostDto>;
+    delete(id: number): Promise<import("typeorm").DeleteResult>;
 }

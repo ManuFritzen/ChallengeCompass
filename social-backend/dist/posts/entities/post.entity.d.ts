@@ -1,7 +1,9 @@
 import { User } from "src/users/entities/user.entity";
 export declare class Post {
     id: number;
+    user: User;
+    post_date: Date;
     description: string;
-    url_image: string;
-    users: User[];
+    likes?: number;
+    url_image?: string;
 }

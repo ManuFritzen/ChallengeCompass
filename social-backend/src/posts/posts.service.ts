@@ -1,39 +1,67 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Post)
-    private postsRepository: Repository<Post>
+    private postsRepository: Repository<Post>,
+
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
   ){
 
   }
   async create(createPostDto: CreatePostDto) {
-    const post = await this.postsRepository.save(createPostDto);
+
+    const { user } = createPostDto;
+
+    // recuperar do repositorio User o usuario com este user
+    const usuario = await this.usersRepository.findOneBy({ user });
+
+    if (!usuario) {
+      throw new NotFoundException('usuario nao encontrado, nao eh possivel cadastrar um post')
+    }
+
+    const post = await this.postsRepository.save({
+      ...createPostDto,
+      user: usuario
+    });
     return {
-      msg: 'This action adds a new post',
-      post: post,
+      ...post,
+      user: usuario.user
     };
   }
 
+
   findAll() {
-    return `This action returns all posts`;
+    const allposts = this.postsRepository.find();
+    return allposts;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number) {
+    const post = await this.postsRepository.findOneBy({ id });
+    
+    if (!post) {
+      throw new NotFoundException('post nao encontrado');
+    }
+    
+    return post;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, dto: UpdatePostDto) {
+    let toUpdate = await this.postsRepository.findOneBy({id});
+
+    let updated = Object.assign(toUpdate, dto);
+    return await this.postsRepository.save(updated);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async delete(id: number) {
+    return await this.postsRepository.delete({ id });
   }
 }

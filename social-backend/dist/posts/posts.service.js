@@ -17,34 +17,47 @@ const common_1 = require("@nestjs/common");
 const post_entity_1 = require("./entities/post.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const user_entity_1 = require("../users/entities/user.entity");
 let PostsService = class PostsService {
-    constructor(postsRepository) {
+    constructor(postsRepository, usersRepository) {
         this.postsRepository = postsRepository;
+        this.usersRepository = usersRepository;
     }
     async create(createPostDto) {
-        const post = await this.postsRepository.save(createPostDto);
-        return {
-            msg: 'This action adds a new post',
-            post: post,
-        };
+        const { user } = createPostDto;
+        const usuario = await this.usersRepository.findOneBy({ user });
+        if (!usuario) {
+            throw new common_1.NotFoundException('usuario nao encontrado, nao eh possivel cadastrar um post');
+        }
+        const post = await this.postsRepository.save(Object.assign(Object.assign({}, createPostDto), { user: usuario }));
+        return Object.assign(Object.assign({}, post), { user: usuario.user });
     }
     findAll() {
-        return `This action returns all posts`;
+        const allposts = this.postsRepository.find();
+        return allposts;
     }
-    findOne(id) {
-        return `This action returns a #${id} post`;
+    async findOne(id) {
+        const post = await this.postsRepository.findOneBy({ id });
+        if (!post) {
+            throw new common_1.NotFoundException('post nao encontrado');
+        }
+        return post;
     }
-    update(id, updatePostDto) {
-        return `This action updates a #${id} post`;
+    async update(id, dto) {
+        let toUpdate = await this.postsRepository.findOneBy({ id });
+        let updated = Object.assign(toUpdate, dto);
+        return await this.postsRepository.save(updated);
     }
-    remove(id) {
-        return `This action removes a #${id} post`;
+    async delete(id) {
+        return await this.postsRepository.delete({ id });
     }
 };
 PostsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(post_entity_1.Post)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], PostsService);
 exports.PostsService = PostsService;
 //# sourceMappingURL=posts.service.js.map
