@@ -1,5 +1,3 @@
-
-
 export class CreatePostDto {
     user: string;
     decription: string;

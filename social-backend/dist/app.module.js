@@ -15,6 +15,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/entities/user.entity");
 const post_entity_1 = require("./posts/entities/post.entity");
 const posts_module_1 = require("./posts/posts.module");
+const comments_module_1 = require("./comments/comments.module");
+const comment_entity_1 = require("./comments/entities/comment.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,11 +25,12 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'sqlite',
                 database: 'database.db',
-                entities: [user_entity_1.User, post_entity_1.Post],
+                entities: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
             posts_module_1.PostsModule,
+            comments_module_1.CommentsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne,  PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne,  OneToMany,  PrimaryGeneratedColumn } from "typeorm";
 import { User } from "src/users/entities/user.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 
 @Entity('posts')
 export class Post {
@@ -20,6 +21,9 @@ export class Post {
 
     @Column()
     url_image?: string;
+
+    @OneToMany(() => Comment, (comment) => comment.post)
+    comments: Comment[];
 
 
 }

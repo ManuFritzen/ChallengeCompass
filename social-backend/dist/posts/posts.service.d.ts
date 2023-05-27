@@ -15,6 +15,7 @@ export declare class PostsService {
         id: number;
         post_date: Date;
         description: string;
+        comments: import("../comments/entities/comment.entity").Comment[];
     }>;
     findAll(): Promise<Post[]>;
     findOne(id: number): Promise<Post>;

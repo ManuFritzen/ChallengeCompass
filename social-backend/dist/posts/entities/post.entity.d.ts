@@ -1,4 +1,5 @@
 import { User } from "src/users/entities/user.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 export declare class Post {
     id: number;
     user: User;
@@ -6,4 +7,5 @@ export declare class Post {
     description: string;
     likes?: number;
     url_image?: string;
+    comments: Comment[];
 }

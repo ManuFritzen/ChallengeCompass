@@ -9,42 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Post = void 0;
+exports.Comment = void 0;
 const typeorm_1 = require("typeorm");
+const post_entity_1 = require("../../posts/entities/post.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
-const comment_entity_1 = require("../../comments/entities/comment.entity");
-let Post = class Post {
+let Comment = class Comment {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Post.prototype, "id", void 0);
+], Comment.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts),
-    __metadata("design:type", user_entity_1.User)
-], Post.prototype, "user", void 0);
+    (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, (post) => post.comments),
+    __metadata("design:type", post_entity_1.Post)
+], Comment.prototype, "post", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'post_date' }),
-    __metadata("design:type", Date)
-], Post.prototype, "post_date", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Post.prototype, "description", void 0);
+], Comment.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (use) => use.comments),
+    __metadata("design:type", user_entity_1.User)
+], Comment.prototype, "use", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Post.prototype, "likes", void 0);
+], Comment.prototype, "post_id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Post.prototype, "url_image", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.post),
-    __metadata("design:type", Array)
-], Post.prototype, "comments", void 0);
-Post = __decorate([
-    (0, typeorm_1.Entity)('posts')
-], Post);
-exports.Post = Post;
-//# sourceMappingURL=post.entity.js.map
+], Comment.prototype, "comment", void 0);
+Comment = __decorate([
+    (0, typeorm_1.Entity)('comments')
+], Comment);
+exports.Comment = Comment;
+//# sourceMappingURL=comment.entity.js.map

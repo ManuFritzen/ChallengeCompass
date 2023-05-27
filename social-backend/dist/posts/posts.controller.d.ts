@@ -12,6 +12,7 @@ export declare class PostsController {
         id: number;
         post_date: Date;
         description: string;
+        comments: import("../comments/entities/comment.entity").Comment[];
     }>;
     findAll(): Promise<import("./entities/post.entity").Post[]>;
     findOne(id: string): Promise<import("./entities/post.entity").Post>;

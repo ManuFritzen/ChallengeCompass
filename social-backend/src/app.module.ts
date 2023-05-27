@@ -9,13 +9,14 @@ import { Post } from './posts/entities/post.entity';
 //import { dbconfig } from './config/db-connection';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/entities/comment.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'database.db',
-      entities: [User, Post],
+      entities: [User, Post, Comment],
       synchronize: true,
     }),
     UsersModule,
