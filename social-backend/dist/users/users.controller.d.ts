@@ -9,7 +9,7 @@ export declare class UsersController {
         user: CreateUserDto & import("./entities/user.entity").User;
     }>;
     findAll(): Promise<import("./entities/user.entity").User[]>;
-    findOne(id: string): Promise<import("./entities/user.entity").User>;
+    findOne(id: number): Promise<import("./entities/user.entity").User>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<import("./entities/user.entity").User & UpdateUserDto>;
     delete(id: number): Promise<import("typeorm").DeleteResult>;
 }

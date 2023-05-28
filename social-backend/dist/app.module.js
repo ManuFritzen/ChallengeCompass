@@ -17,6 +17,7 @@ const post_entity_1 = require("./posts/entities/post.entity");
 const posts_module_1 = require("./posts/posts.module");
 const comments_module_1 = require("./comments/comments.module");
 const comment_entity_1 = require("./comments/entities/comment.entity");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -31,6 +32,7 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             posts_module_1.PostsModule,
             comments_module_1.CommentsModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

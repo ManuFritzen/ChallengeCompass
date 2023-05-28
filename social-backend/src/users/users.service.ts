@@ -7,11 +7,28 @@ import { DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
+  find: any;
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>
   ) {
 
+  }
+
+  async findOneByUsername(username: string): Promise<User | undefined> {
+    return this.usersRepository.findOne({ where: { user: username } });
+  }
+  
+
+  async findOne(id: number) {
+    const user = await this.usersRepository.findOneBy({ id });
+    
+    if (!user) {
+      throw new NotFoundException('usuario nao encontrado');
+    }
+    
+    delete user.password;
+    return user;
   }
 
   async create(createUserDto: CreateUserDto) {
@@ -30,16 +47,6 @@ export class UsersService {
   }
 
 
-  async findOne(id: number) {
-    const user = await this.usersRepository.findOneBy({ id });
-    
-    if (!user) {
-      throw new NotFoundException('usuario nao encontrado');
-    }
-    
-    delete user.password;
-    return user;
-  }
 
   async update(id: number, dto: UpdateUserDto){
     let toUpdate = await this.usersRepository.findOneBy({id});

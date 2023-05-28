@@ -21,6 +21,17 @@ let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
     }
+    async findOneByUsername(username) {
+        return this.usersRepository.findOne({ where: { user: username } });
+    }
+    async findOne(id) {
+        const user = await this.usersRepository.findOneBy({ id });
+        if (!user) {
+            throw new common_1.NotFoundException('usuario nao encontrado');
+        }
+        delete user.password;
+        return user;
+    }
     async create(createUserDto) {
         const user = await this.usersRepository.save(createUserDto);
         return {
@@ -31,14 +42,6 @@ let UsersService = class UsersService {
     async findAll() {
         const allusers = await this.usersRepository.find();
         return allusers;
-    }
-    async findOne(id) {
-        const user = await this.usersRepository.findOneBy({ id });
-        if (!user) {
-            throw new common_1.NotFoundException('usuario nao encontrado');
-        }
-        delete user.password;
-        return user;
     }
     async update(id, dto) {
         let toUpdate = await this.usersRepository.findOneBy({ id });
