@@ -40,6 +40,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "profile_photo", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => post_entity_1.Post, (post) => post.user),
     __metadata("design:type", Array)
 ], User.prototype, "posts", void 0);

@@ -25,11 +25,10 @@ let CommentsService = class CommentsService {
         this.postsRepository = postsRepository;
         this.usersRepository = usersRepository;
     }
-    async create(createCommentDto) {
+    async create(createCommentDto, id) {
         const { user } = createCommentDto;
-        const { post_id } = createCommentDto;
         const usuario = await this.usersRepository.findOneBy({ user });
-        const postPubli = await this.postsRepository.findOneBy({ id: post_id });
+        const postPubli = await this.postsRepository.findOneBy({ id });
         if (!usuario) {
             throw new common_1.NotFoundException('usuario nao encontrado, nao eh possivel comentar');
         }
@@ -38,18 +37,27 @@ let CommentsService = class CommentsService {
         }
         const comment = await this.commentsRepository.save([{
                 post: postPubli,
-                use: usuario,
+                user: usuario,
                 comment: createCommentDto.comment,
             }]);
         return {
-            comment: createCommentDto.comment,
             post_id: postPubli.id,
             user: usuario.user,
+            comment: createCommentDto.comment
         };
     }
-    findAll() {
-        const allcomments = this.commentsRepository.find();
-        return allcomments;
+    async findAll(id) {
+        const postsAll = await this.postsRepository.findOneBy({ id });
+        const commentsAll = await this.commentsRepository.find({ relations: ['post'] });
+        const comments = commentsAll.map(comment => ({
+            post_id: postsAll.id,
+            id: comment.id,
+            user: postsAll.user,
+            comment: comment.comment
+        }));
+        return {
+            comments
+        };
     }
     async findOne(id) {
         const comment = await this.commentsRepository.findOneBy({ id });
@@ -61,8 +69,8 @@ let CommentsService = class CommentsService {
     update(id, updateCommentDto) {
         return `This action updates a #${id} comment`;
     }
-    remove(id) {
-        return `This action removes a #${id} comment`;
+    async remove(id) {
+        return await this.commentsRepository.delete({ id });
     }
 };
 CommentsService = __decorate([

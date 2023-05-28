@@ -41,9 +41,14 @@ export class UsersService {
   }
 
   async findAll() {
-    // find = select
-    const allusers = await this.usersRepository.find();
-    return allusers;
+    const allUsers = await this.usersRepository.find();
+  
+    const usersWithoutPassword = allUsers.map(user => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+  
+    return usersWithoutPassword;
   }
 
 

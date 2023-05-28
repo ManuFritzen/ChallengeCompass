@@ -2,6 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreatePostDto } from './create-post.dto';
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {
-    description: string;
+    user: string;
+    decription: string;
     url_image: string;
 }

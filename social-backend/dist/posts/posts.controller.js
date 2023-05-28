@@ -25,7 +25,7 @@ let PostsController = class PostsController {
         return this.postsService.create(createPostDto);
     }
     findAll() {
-        return this.postsService.findAll();
+        return this.postsService.findAll('username');
     }
     findOne(id) {
         return this.postsService.findOne(+id);

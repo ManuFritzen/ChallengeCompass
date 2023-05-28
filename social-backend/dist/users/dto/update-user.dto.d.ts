@@ -6,5 +6,6 @@ export declare class UpdateUserDto extends UpdateUserDto_base {
     birthdate: string;
     email: string;
     password: string;
+    profile_photo?: string;
 }
 export {};

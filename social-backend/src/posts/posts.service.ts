@@ -18,30 +18,37 @@ export class PostsService {
 
   }
   async create(createPostDto: CreatePostDto) {
-
     const { user } = createPostDto;
-
-    // recuperar do repositorio User o usuario com este user
+  
     const usuario = await this.usersRepository.findOneBy({ user });
-
+  
     if (!usuario) {
-      throw new NotFoundException('usuario nao encontrado, nao eh possivel cadastrar um post')
+      throw new NotFoundException('Usuário não encontrado. Não é possível cadastrar um post.');
     }
-
+  
     const post = await this.postsRepository.save({
       ...createPostDto,
-      user: usuario
+      users: usuario
     });
+
+    const { users, ...postWithoutUsers } = post;
+
+  
     return {
-      ...post,
+      ...postWithoutUsers,
       user: usuario.user
     };
   }
 
 
-  findAll() {
-    const allposts = this.postsRepository.find();
-    return allposts;
+  async findAll(username: string) {
+    const allPosts = this.postsRepository.find();
+    const usuarios = this.usersRepository.findBy({ user: username });
+  
+    const [allPostsResult, usuariosResult] = await Promise.all([allPosts, usuarios]);
+    return {
+      posts: allPostsResult,
+    };
   }
 
   async findOne(id: number) {

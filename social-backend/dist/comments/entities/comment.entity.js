@@ -24,17 +24,9 @@ __decorate([
     __metadata("design:type", post_entity_1.Post)
 ], Comment.prototype, "post", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Comment.prototype, "user", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (use) => use.comments),
     __metadata("design:type", user_entity_1.User)
-], Comment.prototype, "use", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Comment.prototype, "post_id", void 0);
+], Comment.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

@@ -11,6 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsService = void 0;
 const common_1 = require("@nestjs/common");
@@ -27,14 +38,19 @@ let PostsService = class PostsService {
         const { user } = createPostDto;
         const usuario = await this.usersRepository.findOneBy({ user });
         if (!usuario) {
-            throw new common_1.NotFoundException('usuario nao encontrado, nao eh possivel cadastrar um post');
+            throw new common_1.NotFoundException('Usuário não encontrado. Não é possível cadastrar um post.');
         }
-        const post = await this.postsRepository.save(Object.assign(Object.assign({}, createPostDto), { user: usuario }));
-        return Object.assign(Object.assign({}, post), { user: usuario.user });
+        const post = await this.postsRepository.save(Object.assign(Object.assign({}, createPostDto), { users: usuario }));
+        const { users } = post, postWithoutUsers = __rest(post, ["users"]);
+        return Object.assign(Object.assign({}, postWithoutUsers), { user: usuario.user });
     }
-    findAll() {
-        const allposts = this.postsRepository.find();
-        return allposts;
+    async findAll(username) {
+        const allPosts = this.postsRepository.find();
+        const usuarios = this.usersRepository.findBy({ user: username });
+        const [allPostsResult, usuariosResult] = await Promise.all([allPosts, usuarios]);
+        return {
+            posts: allPostsResult,
+        };
     }
     async findOne(id) {
         const post = await this.postsRepository.findOneBy({ id });

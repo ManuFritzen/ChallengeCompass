@@ -6,9 +6,11 @@ import { Comment } from "src/comments/entities/comment.entity";
 export class Post {
     @PrimaryGeneratedColumn()
     id: number;
+    @Column()
+    user: string;
 
     @ManyToOne(() => User, (user) => user.posts)
-    user: User;
+    users: User;
 
     @CreateDateColumn({ name: 'post_date'})
     post_date: Date;
@@ -16,8 +18,8 @@ export class Post {
     @Column({ length: 100})
     description: string;
 
-    @Column()
-    likes?: number;
+    @Column({nullable: true})
+    likes: number;
 
     @Column()
     url_image?: string;

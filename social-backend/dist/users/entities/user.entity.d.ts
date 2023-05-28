@@ -7,6 +7,7 @@ export declare class User {
     birthdate: string;
     email: string;
     password: string;
+    profile_photo: string;
     posts: Post[];
     comments: Comment[];
 }

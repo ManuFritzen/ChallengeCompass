@@ -12,7 +12,16 @@ export declare class UsersService {
         msg: string;
         user: CreateUserDto & User;
     }>;
-    findAll(): Promise<User[]>;
+    findAll(): Promise<{
+        id: number;
+        name: string;
+        user: string;
+        birthdate: string;
+        email: string;
+        profile_photo: string;
+        posts: import("../posts/entities/post.entity").Post[];
+        comments: import("../comments/entities/comment.entity").Comment[];
+    }[]>;
     update(id: number, dto: UpdateUserDto): Promise<User & UpdateUserDto>;
     delete(id: number): Promise<DeleteResult>;
     findById(id: number): Promise<User>;

@@ -14,7 +14,9 @@ export declare class PostsController {
         description: string;
         comments: import("../comments/entities/comment.entity").Comment[];
     }>;
-    findAll(): Promise<import("./entities/post.entity").Post[]>;
+    findAll(): Promise<{
+        posts: import("./entities/post.entity").Post[];
+    }>;
     findOne(id: string): Promise<import("./entities/post.entity").Post>;
     update(id: string, updatePostDto: UpdatePostDto): Promise<import("./entities/post.entity").Post & UpdatePostDto>;
     delete(id: number): Promise<import("typeorm").DeleteResult>;

@@ -17,7 +17,9 @@ export declare class PostsService {
         description: string;
         comments: import("../comments/entities/comment.entity").Comment[];
     }>;
-    findAll(): Promise<Post[]>;
+    findAll(username: string): Promise<{
+        posts: Post[];
+    }>;
     findOne(id: number): Promise<Post>;
     update(id: number, dto: UpdatePostDto): Promise<Post & UpdatePostDto>;
     delete(id: number): Promise<DeleteResult>;

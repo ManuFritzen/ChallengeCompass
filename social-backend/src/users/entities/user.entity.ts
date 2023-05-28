@@ -22,6 +22,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column()
+    profile_photo: string;
+
     @OneToMany(() => Post, (post)=> post.user)
     posts: Post[];
 

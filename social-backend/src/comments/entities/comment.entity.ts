@@ -12,14 +12,8 @@ export class Comment {
     @ManyToOne(() => Post, (post) => post.comments)
     post: Post;
 
-    @Column()
-    user: string;
-    
     @ManyToOne(() => User, (use) => use.comments)
-    use: User;
-
-    @Column()
-    post_id: number;
+    user: User;
 
     @Column()
     comment: string;

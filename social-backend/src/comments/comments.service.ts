@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,36 +22,49 @@ export class CommentsService {
 
   }
 
-  async create(createCommentDto: CreateCommentDto) {
-    const { user } = createCommentDto;
-    const { post_id } = createCommentDto;
+  async create(createCommentDto: CreateCommentDto, id: number) {
+    
+      const { user } = createCommentDto;
 
-    const usuario = await this.usersRepository.findOneBy({ user });
-    const postPubli = await this.postsRepository.findOneBy( {id: post_id} );
-    if (!usuario) {
-      throw new NotFoundException('usuario nao encontrado, nao eh possivel comentar')
-    }
-    if (!postPubli) {
-      throw new NotFoundException('publicação nao encontrada, nao eh possivel comentar')
-    }
+      const usuario = await this.usersRepository.findOneBy({ user });
+      const postPubli = await this.postsRepository.findOneBy( {id} );
+      if (!usuario) {
+        throw new NotFoundException('usuario nao encontrado, nao eh possivel comentar')
+      }
+      if (!postPubli) {
+        throw new NotFoundException('publicação nao encontrada, nao eh possivel comentar')
+      }
 
-    const comment = await this.commentsRepository.save([{
-      post: postPubli,
-      use: usuario,
-      comment: createCommentDto.comment,
-    }]);
-    return {
-      comment: createCommentDto.comment,
-      post_id: postPubli.id,
-      user: usuario.user,
-      
-    };
+      const comment = await this.commentsRepository.save([{
+        post: postPubli,
+        user: usuario,
+        comment: createCommentDto.comment,
+      }]);
+      return {
+        post_id: postPubli.id,
+        user: usuario.user,
+        comment: createCommentDto.comment
+      }
   }
 
-  findAll() {
-    const allcomments = this.commentsRepository.find();
-    return allcomments;
+  async findAll(id: number) {
+    const postsAll = await this.postsRepository.findOneBy({ id });
+    const commentsAll = await this.commentsRepository.find({ relations: ['post'] });
+  
+    
+      const comments = commentsAll.map(comment => ({
+        post_id: postsAll.id,
+        id: comment.id,
+        user: postsAll.user,
+        comment: comment.comment
+      }));
+  
+      return {
+        comments
+      };
+   
   }
+  
 
   async findOne(id: number) {
     const comment = await this.commentsRepository.findOneBy({ id });
@@ -66,7 +79,6 @@ export class CommentsService {
     return `This action updates a #${id} comment`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comment`;
-  }
+  async remove(id: number) {
+    return await this.commentsRepository.delete({ id });  }
 }

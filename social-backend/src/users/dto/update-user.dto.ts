@@ -9,4 +9,5 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   birthdate: string;
   email: string;
   password: string;
+  profile_photo?: string;
 }

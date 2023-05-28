@@ -14,7 +14,7 @@ export class PostsController {
 
   @Get()
   findAll() {
-    return this.postsService.findAll();
+    return this.postsService.findAll('username');
   }
 
   @Get(':id')
