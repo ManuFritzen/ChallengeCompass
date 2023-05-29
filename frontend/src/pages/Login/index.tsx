@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {
     Container, 
     Left, 
@@ -18,17 +18,12 @@ import {Link, useNavigate} from "react-router-dom";
 import Icons from "../../assets/icons/icons";
 import { UserAPI } from "../../api/UserApi";
 
-let registeredUser = false;   
-
 export function Login(){
     
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let msgError:string = error;
-    const [data, setData] = useState([]);
     
     async function handleLogin(e: { preventDefault: () => void; }) {
         
@@ -41,14 +36,12 @@ export function Login(){
 
         const loginResult = await UserAPI.login({ user, password });
         if (loginResult) {
-            alert('USUARIO E SENHA VALIDADOS COM SUCESSO');
+            
             window.sessionStorage.setItem("@SocialCompass.user", user);
             window.sessionStorage.setItem("@SocialCompass.jwt", loginResult);
             navigate('/home')
         } else {
-            alert('USUARIO OU SENHA INCORRETOS');
-        }
-           
+            alert('USUARIO OU SENHA INCORRETOS');        }           
     }
 
     return(

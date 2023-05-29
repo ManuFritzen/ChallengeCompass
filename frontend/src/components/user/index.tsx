@@ -4,7 +4,7 @@ import { UserContainer,
 } from "./styled";
 
 interface Iprops{
-    textLeft?: string | null;
+    textLeft?: string;
     textRight?: string | null;
     src?: string ;
     alt?: string;

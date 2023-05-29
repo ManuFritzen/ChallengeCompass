@@ -33,7 +33,7 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async findOneByUsername(username) {
-        return this.usersRepository.findOne({ where: { user: username } });
+        return this.usersRepository.findOne({ where: { email: username } });
     }
     async findOne(id) {
         const user = await this.usersRepository.findOneBy({ id });

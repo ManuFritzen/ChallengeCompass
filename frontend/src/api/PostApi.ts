@@ -11,6 +11,18 @@ export const PostAPI = {
             console.error({ error });
             return null;
         }
-    }
+    },
+
+    newPost:async function(postDto: any) {
+        try {
+            const response = await api.post('/posts', postDto);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error('Error creating user');
+            console.error({ error });
+            return null;
+        }
+    }, 
 
 }

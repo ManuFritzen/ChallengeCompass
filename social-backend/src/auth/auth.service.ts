@@ -12,11 +12,11 @@ export class AuthService {
     async signIn(user: string, pass: string): Promise<any>{
         const userLogin = await this.usersService.findOneByUsername(user);
 
-        if(userLogin.password !== pass || userLogin.user !== user){
+        if(userLogin.password !== pass || userLogin.email !== user){
             throw new UnauthorizedException('Usuário ou senha inválidos');
         }
 
-        const payload = {sub: userLogin.id, username: userLogin.user};
+        const payload = {sub: userLogin.id, username: userLogin.email};
         return {
             jwt: await this.jwtService.signAsync(payload),
         };
