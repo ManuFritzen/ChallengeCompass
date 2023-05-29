@@ -28,7 +28,27 @@ export function Register(this:any){
   const [senhaCheck, setSenhaCheck] = useState("");
   const [error, setError] = useState("");
   const [errorUser, setErrorUser] = useState(""); 
-  const navigate = useNavigate();  
+  const navigate = useNavigate(); 
+  
+  const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setEmail(e.target.value);
+  };
+
+  const handleBlur = () => {
+    if (!email) {
+      setError('O campo de e-mail é obrigatório');
+    } else if (!isValidEmail(email)) {
+      setError('Insira um e-mail válido');
+    } else {
+      setError('');
+    }
+  };
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^\S+@\S+$/i;
+    return emailRegex.test(email);
+  };
+
   
   async function handleRegister(e: { preventDefault: () => void; }){
     e.preventDefault();
@@ -112,9 +132,8 @@ export function Register(this:any){
                           type="email"
                           placeholder="Email"
                           value={email}
-                          onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => {
-                            setEmail(e.target.value)
-                          }}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                           icon={Icons.iconEmail}
                           className={error==="Preencha todos os campos"&&email===""?"errorInput":"sucessInput"}
                         />                        
