@@ -1,4 +1,4 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpCode, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -32,12 +32,15 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto) {
-    // save = insert
-    const user = await this.usersRepository.save(createUserDto);
-    return {
-      msg: 'This action adds a new user',
-      user: user,
-    };
+    try {
+      const user = await this.usersRepository.save(createUserDto);
+      return {
+        msg: 'This action adds a new user',
+        user: user,
+      };
+    } catch (error) {
+      throw new BadRequestException('Invalid fields. Please check the request.');
+    }
   }
 
   async findAll() {
@@ -55,14 +58,21 @@ export class UsersService {
 
   async update(id: number, dto: UpdateUserDto){
     let toUpdate = await this.usersRepository.findOneBy({id});
+    if (!toUpdate) {
+      throw new NotFoundException('User not found');
+    }
     delete toUpdate.password;
 
     let updated = Object.assign(toUpdate, dto);
     return await this.usersRepository.save(updated);
   }
 
-  async delete(id: number): Promise<DeleteResult> {    
-    return await this.usersRepository.delete({ id });
+  async delete(id: number): Promise<void> {
+    const deleteResult: DeleteResult = await this.usersRepository.delete(id);
+  
+    if (deleteResult.affected === 0) {
+      throw new NotFoundException('User not found');
+    }
   }
 
   async findById(id: number): Promise<User>{
@@ -70,7 +80,7 @@ export class UsersService {
 
     if (!user) {
       const errors = {User: ' not found'};
-      throw new HttpException({errors}, 401);
+      throw new HttpException({errors}, 404);
     }
 
     return this.buildUserRO(user);

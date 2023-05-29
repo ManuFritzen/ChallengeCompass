@@ -1,7 +1,7 @@
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 export declare class UsersService {
     private usersRepository;
     find: any;
@@ -23,7 +23,7 @@ export declare class UsersService {
         comments: import("../comments/entities/comment.entity").Comment[];
     }[]>;
     update(id: number, dto: UpdateUserDto): Promise<User & UpdateUserDto>;
-    delete(id: number): Promise<DeleteResult>;
+    delete(id: number): Promise<void>;
     findById(id: number): Promise<User>;
     buildUserRO(user: User): User | PromiseLike<User>;
     findByEmail(email: string): Promise<User>;

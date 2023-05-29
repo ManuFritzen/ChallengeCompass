@@ -20,5 +20,5 @@ export declare class UsersController {
     }[]>;
     findOne(id: number): Promise<import("./entities/user.entity").User>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<import("./entities/user.entity").User & UpdateUserDto>;
-    delete(id: number): Promise<import("typeorm").DeleteResult>;
+    delete(id: number): Promise<void>;
 }

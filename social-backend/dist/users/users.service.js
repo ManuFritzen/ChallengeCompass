@@ -44,11 +44,16 @@ let UsersService = class UsersService {
         return user;
     }
     async create(createUserDto) {
-        const user = await this.usersRepository.save(createUserDto);
-        return {
-            msg: 'This action adds a new user',
-            user: user,
-        };
+        try {
+            const user = await this.usersRepository.save(createUserDto);
+            return {
+                msg: 'This action adds a new user',
+                user: user,
+            };
+        }
+        catch (error) {
+            throw new common_1.BadRequestException('Invalid fields. Please check the request.');
+        }
     }
     async findAll() {
         const allUsers = await this.usersRepository.find();
@@ -60,18 +65,24 @@ let UsersService = class UsersService {
     }
     async update(id, dto) {
         let toUpdate = await this.usersRepository.findOneBy({ id });
+        if (!toUpdate) {
+            throw new common_1.NotFoundException('User not found');
+        }
         delete toUpdate.password;
         let updated = Object.assign(toUpdate, dto);
         return await this.usersRepository.save(updated);
     }
     async delete(id) {
-        return await this.usersRepository.delete({ id });
+        const deleteResult = await this.usersRepository.delete(id);
+        if (deleteResult.affected === 0) {
+            throw new common_1.NotFoundException('User not found');
+        }
     }
     async findById(id) {
         const user = await this.usersRepository.findOneBy({ id });
         if (!user) {
             const errors = { User: ' not found' };
-            throw new common_1.HttpException({ errors }, 401);
+            throw new common_1.HttpException({ errors }, 404);
         }
         return this.buildUserRO(user);
     }

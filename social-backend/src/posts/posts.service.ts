@@ -55,7 +55,7 @@ export class PostsService {
     const post = await this.postsRepository.findOneBy({ id });
     
     if (!post) {
-      throw new NotFoundException('post nao encontrado');
+      throw new NotFoundException('Post not found');
     }
     
     return post;
@@ -63,6 +63,9 @@ export class PostsService {
 
   async update(id: number, dto: UpdatePostDto) {
     let toUpdate = await this.postsRepository.findOneBy({id});
+    if (!toUpdate) {
+      throw new NotFoundException('Post not found');
+    }
 
     let updated = Object.assign(toUpdate, dto);
     return await this.postsRepository.save(updated);

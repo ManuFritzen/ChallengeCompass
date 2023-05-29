@@ -55,12 +55,15 @@ let PostsService = class PostsService {
     async findOne(id) {
         const post = await this.postsRepository.findOneBy({ id });
         if (!post) {
-            throw new common_1.NotFoundException('post nao encontrado');
+            throw new common_1.NotFoundException('Post not found');
         }
         return post;
     }
     async update(id, dto) {
         let toUpdate = await this.postsRepository.findOneBy({ id });
+        if (!toUpdate) {
+            throw new common_1.NotFoundException('Post not found');
+        }
         let updated = Object.assign(toUpdate, dto);
         return await this.postsRepository.save(updated);
     }
