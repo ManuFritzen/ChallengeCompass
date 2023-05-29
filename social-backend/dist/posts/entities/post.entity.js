@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", String)
 ], Post.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts, { onDelete: 'CASCADE' }),
     __metadata("design:type", user_entity_1.User)
 ], Post.prototype, "users", void 0);
 __decorate([
@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", String)
 ], Post.prototype, "url_image", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.post),
+    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.post, { cascade: true }),
     __metadata("design:type", Array)
 ], Post.prototype, "comments", void 0);
 Post = __decorate([

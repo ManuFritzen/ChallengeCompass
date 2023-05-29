@@ -16,14 +16,16 @@ import { Post,
         PostTextComments,
 } from "./styled";
 import { User } from "../user";
-import Photo from "../../assets/photoProfile.jpg"
 import { ButtonIcon } from "../buttonIcon";
 import { InputTextArea } from "../inputTextArea";
 import Icons from "../../assets/icons/icons";
-import { ButtonText } from "../../pages/Login/styled";
+import { useState, useEffect } from "react";
+import { UserAPI } from '../../api/UserApi';
+import { PostAPI } from '../../api/PostApi';
+import { CommentAPI } from '../../api/CommentApi';
 
 interface Iprops{
-    user?: string;
+    user?: string | string[];
     post_date?: string;
     description?: string;
     likes?: number;
@@ -37,10 +39,53 @@ interface Iprops{
     amountComments?: number;
     userComments?: string;
     imgComment?: string;
+}
+
+interface IComments{
+    post_id: any;    
+    id: number;
+    user: string | undefined;        
+    comment: string;
+}
+
+interface IPosts{
+    profile_photo: string | undefined;
+    post_date: string | undefined;
+    likes: number | undefined;
+    id: number;
+    user: string | undefined;        
+    description: string;
+    url_image:string;   
 
 }
 
 export function PostUser(props:Iprops){
+
+    const [dataUser, setDataUser] = useState([] as { name: string, email: string, user: string, profile_photo: string }[]);
+    const [dataPosts, setDataPosts] = useState<IPosts[]>([]);
+    const [dataComments, setDataComments] = useState<IComments[]>([]);
+
+
+    const fetchCommentData = async () => {
+        try {
+            const users = await UserAPI.getAll();
+            setDataUser(users);
+            const posts = await PostAPI.getAll();
+            setDataPosts(posts);
+            const comments = await CommentAPI.getAll(); 
+            setDataComments(comments);
+            
+            
+        } catch (error) {
+            console.log('Erro ao buscar dados do usuário', error);
+        }
+        };
+    
+        useEffect(() => {
+        fetchCommentData();
+    }, []);    
+
+
 
     return(
         <Post>
@@ -129,14 +174,25 @@ export function PostUser(props:Iprops){
             <PostText>
                 Todos os comentários
             </PostText>
-            <PostComments>
-            <User classImg = "userComment"                    
-                    src={props.imgComment}
+            {dataComments && dataPosts && dataPosts.map(post => {
+                const postComments = dataComments
+                .filter(comment => comment.post_id === post.id)
+                .map(comment => (
+            <PostComments >
+                <User
+                    classImg="userComment"
+                    src={dataUser.map(user => (user.user === comment.user ? user.profile_photo : ''))}
                     alt="Foto do usuário"
                 />
-                {props.userComments + ":"} 
-                {props.coments}
+                {comment.user + ':'}
+                {comment.comment}
             </PostComments>
+            ));
+
+            return postComments;
+            })}
+
+       
             <PostLine/>
             <PostTextComments >
                 Ver todos os comentários

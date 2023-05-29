@@ -20,11 +20,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Comment.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, (post) => post.comments),
+    (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, (post) => post.comments, { onDelete: 'CASCADE' }),
     __metadata("design:type", post_entity_1.Post)
 ], Comment.prototype, "post", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (use) => use.comments),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (use) => use.comments, { onDelete: 'CASCADE' }),
     __metadata("design:type", user_entity_1.User)
 ], Comment.prototype, "user", void 0);
 __decorate([

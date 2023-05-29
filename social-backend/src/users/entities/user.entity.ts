@@ -25,10 +25,10 @@ export class User {
     @Column()
     profile_photo: string;
 
-    @OneToMany(() => Post, (post)=> post.user)
+    @OneToMany(() => Post, (post)=> post.user, { cascade: true })
     posts: Post[];
 
-    @OneToMany(() => Comment, (comment) => comment.user)
+    @OneToMany(() => Comment, (comment) => comment.user, { cascade: true })
     comments: Comment[];
 
 }

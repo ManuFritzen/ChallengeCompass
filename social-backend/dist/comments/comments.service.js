@@ -49,7 +49,7 @@ let CommentsService = class CommentsService {
     async findAll(id) {
         const postsAll = await this.postsRepository.findOneBy({ id });
         const commentsAll = await this.commentsRepository.find({ relations: ['post', 'user'] });
-        const comments = commentsAll.filter(comment => comment.post.id === postsAll.id).map(comment => ({
+        const comments = commentsAll.filter(comment => comment.post.id === (postsAll === null || postsAll === void 0 ? void 0 : postsAll.id)).map(comment => ({
             post_id: comment.post.id,
             id: comment.id,
             user: comment.user.user,

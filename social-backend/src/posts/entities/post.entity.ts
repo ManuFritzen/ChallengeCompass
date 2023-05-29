@@ -9,7 +9,7 @@ export class Post {
     @Column()
     user: string;
 
-    @ManyToOne(() => User, (user) => user.posts)
+    @ManyToOne(() => User, (user) => user.posts , { onDelete: 'CASCADE' })
     users: User;
 
     @CreateDateColumn({ name: 'post_date'})
@@ -24,7 +24,7 @@ export class Post {
     @Column({nullable: true})
     url_image?: string;
 
-    @OneToMany(() => Comment, (comment) => comment.post)
+    @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
     comments: Comment[];
 
 

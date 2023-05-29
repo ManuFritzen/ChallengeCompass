@@ -4,9 +4,9 @@ import { UserContainer,
 } from "./styled";
 
 interface Iprops{
-    textLeft?: string;
+    textLeft?: string | string[] | undefined;
     textRight?: string | null;
-    src?: string ;
+    src?: string | string[] | undefined;
     alt?: string;
     class?: string;
     classImg?: string;
