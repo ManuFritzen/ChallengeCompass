@@ -10,17 +10,20 @@
 
 ## About 📝
 
-**Challenge description:** Following your study trail, we will implement a small API for the frontend to consume, 2 routes
-should be available, these being /user and /user/post. We'll keep it simple in this challenge to
-improve it later, so both routes will be GET type and should return the list of users and the posts of
-each user respectively.
-No database will be used yet, so all the data provided by the API should be in a JSON file and posts
-will not be saved anywhere yet either.
-The user list will contain the names of all the scholars as well as a default password for everyone.
-The JSON file is available at the end of this document.
-When logging in, the user should be forwarded to the homepage with their proper data, name,
-photo and etc.
-The buddy list can contain all the scholars in the user list.
+**Challenge description:** To continue, the API of uol's internal social network must be made, for this you must
+follow the development based on this challenge.
+Following your study trail, we will implement a real API for the frontend to consume.
+For the persistence layer (database), can be used SQLite or MongoDB, choose one
+and go with it.
+Following the study trail, must be used typeorm.
+There must be user authentication, use JWT for this, the token must expire in 12
+hours.
+When logging in, the user should be forwarded to the homepage with their proper
+data, name, photo and etc.
+The static json that was passed in the previous challenge will no longer be used. You
+must store everything in the database of your choice.
+For delivery, you must adapt the frontend to consume the backend and its respective
+routes.
 
 
 ## Tools 🔧
@@ -49,13 +52,13 @@ The buddy list can contain all the scholars in the user list.
 ```
 ```bash
   # to run the backend
-  #open the backend folder in a code editor
+  #open the social-backend folder in a code editor
   # Install the dependencies, if you use npm
   $ npm install
 ```
 ```bash
   # Run the project
-  $ npm run start
+  $ npm run start:dev
 ```
 
 
