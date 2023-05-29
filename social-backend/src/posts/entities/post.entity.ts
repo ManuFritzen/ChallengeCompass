@@ -21,7 +21,7 @@ export class Post {
     @Column({nullable: true})
     likes: number;
 
-    @Column()
+    @Column({nullable: true})
     url_image?: string;
 
     @OneToMany(() => Comment, (comment) => comment.post)

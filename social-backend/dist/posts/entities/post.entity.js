@@ -40,7 +40,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Post.prototype, "likes", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Post.prototype, "url_image", void 0);
 __decorate([
