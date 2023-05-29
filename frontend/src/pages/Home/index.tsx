@@ -16,11 +16,19 @@ import Icons from "../../assets/icons/icons";
 import { Publish } from "../../components/publish";
 import { PostUser  } from "../../components/postUser";
 import { User } from "../../components/user";
+import { UserAPI } from '../../api/UserApi';
+import { PostAPI } from '../../api/PostApi';
+import { useNavigate } from 'react-router-dom';
 
 export function Home(){ 
     let userPhoto = window.sessionStorage.getItem("userPhoto");
     let userName = window.sessionStorage.getItem("userName");
-    let userLogin = window.sessionStorage.getItem("userLogin");
+    const navigate = useNavigate();
+    
+        
+    const userLogin = window.sessionStorage.getItem("@SocialCompass.user");
+    const userJWT = window.sessionStorage.getItem("@SocialCompass.jwt");
+
     const [textPost, setTextPost] = useState("");
     const [dataUser, setDataUser] = useState([]);
     const [dataPosts, setDataPosts] = useState([]);
@@ -28,26 +36,24 @@ export function Home(){
 
     useEffect(()=> {
         
-        async function Registers() {
-            const response = await fetch("http://localhost:3001/user");
-            const jsonData = await response.json();
-            setDataUser(jsonData.users); 
+        // BUSCAR O JWT DO LOCAL STORAGE, SE NAO EXISTE, REDIRECIONA O USER PARA A PAGINA INICIAL
+        if (!userLogin || !userJWT) {
+            navigate('/');
+            return;
         }
-        Registers();
+
+        async function getData() {
+            const users = await UserAPI.getAll();
+            setDataUser(users); 
+
+            const posts = await PostAPI.getAll();
+            setDataPosts(posts); 
+            // setDataPostComments(jsonData.posts.comments); 
+        }
+        getData();
+
     }, []);
 
-    useEffect(()=> {
-        
-        async function RegistersPosts() {
-            const response = await fetch("http://localhost:3001/user/post");
-            const jsonData = await response.json();
-            setDataPosts(jsonData.posts); 
-            setDataPostComments(jsonData.posts.comments); 
-        }
-        console.log(dataPosts)
-
-        RegistersPosts();
-    }, []);
 
     interface IPosts{
         user: string | null;        

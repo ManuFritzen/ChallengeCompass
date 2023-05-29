@@ -16,6 +16,7 @@ import {Input} from "../../components/input";
 import { Button } from "../../components/button";
 import {Link, useNavigate} from "react-router-dom";
 import Icons from "../../assets/icons/icons";
+import { UserAPI } from "../../api/UserApi";
 
 let registeredUser = false;   
 
@@ -29,63 +30,26 @@ export function Login(){
     let msgError:string = error;
     const [data, setData] = useState([]);
     
-    
-    useEffect(()=> {
+    async function handleLogin(e: { preventDefault: () => void; }) {
         
-        async function Registers() {
-            const response = await fetch("http://localhost:3001/user");
-            const jsonData = await response.json();
-            setData(jsonData.users); 
-        }
-        Registers();
-    }, []);
-    
-    
-    function handleLogin(e: { preventDefault: () => void; },){  
         e.preventDefault();
-        
-        data.map((userData: {
-            profile_photo: string;
-            name: string;        
-            email: string; 
-            password: string; 
-        }) => {
-            
-            for(let i = 0; i < data.length; i++) {
-                if(user === userData.email && password === userData.password){
-                    registeredUser = true;
-                    window.sessionStorage.setItem("userLogin", user);
-                    window.sessionStorage.setItem("userName", userData.name);
-                    window.sessionStorage.setItem("userPhoto", userData.profile_photo);
 
-                    break;                      
-                }
-            }         
-            
-            return registeredUser;
-        })
-        
-        if (!user && !password) {
-            setError("Informe seu usuário e senha");            
-            //return          
-        } else if (!user){
-            setError("Preencha todos campos")            
-            //e.preventDefault();
-            //alert("passei por aqui")
-            //return
-        } else if (!password){
-            setError("Preencha todos campos")            
-            //e.preventDefault();
-            //alert("passei por aqui")
-        } else if(registeredUser === false) {
-            setError(`Usuário e/ou senha inválidos. Por favor, tente novamente`)         
+        if (!user || !password) {
+            alert('Preencha todos os campos');
+            return;
+        }
+
+        const loginResult = await UserAPI.login({ user, password });
+        if (loginResult) {
+            alert('USUARIO E SENHA VALIDADOS COM SUCESSO');
+            window.sessionStorage.setItem("@SocialCompass.user", user);
+            window.sessionStorage.setItem("@SocialCompass.jwt", loginResult);
+            navigate('/home')
         } else {
-            alert("logado com sucesso");
-            navigate("/home");
+            alert('USUARIO OU SENHA INCORRETOS');
         }
-
-        e.preventDefault();
-    };
+           
+    }
 
     return(
         <Container>

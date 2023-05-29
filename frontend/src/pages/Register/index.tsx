@@ -15,6 +15,7 @@ import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import {Link, useNavigate} from "react-router-dom";
 import Icons from "../../assets/icons/icons";
+import { UserAPI } from "../../api/UserApi";
 
 
 
@@ -29,27 +30,37 @@ export function Register(this:any){
   const [errorUser, setErrorUser] = useState(""); 
   const navigate = useNavigate();  
   
-  function handleRegister(e: { preventDefault: () => void; }){
+  async function handleRegister(e: { preventDefault: () => void; }){
+    e.preventDefault();
     if(user!=="admin"){
       setErrorUser("Usuário disponível")
     }
     if (!email || !senha || !senhaCheck || !name || !user || !date) {
       setError("Preencha todos os campos");
-      e.preventDefault();
-      
     } else  if(user === "admin"){
       setErrorUser("Usuário já existe")
       setError("escolha outro usuário")
-      e.preventDefault();
       return;
     } else if(senha !== senhaCheck ) { 
       setError("As senhas não correspondem");
-      e.preventDefault();
       return;
     } else {     
-      alert("Usuário cadatrado com sucesso!");        
-      navigate("/");  
-      return;
+
+      const newUser = await UserAPI.register({
+        name,
+        user,
+        birthdate: date,
+        email,
+        password: senha,
+        profile_photo: ''
+      })
+      if (newUser) {
+        alert("Usuário cadatrado com sucesso!");        
+        navigate("/");  
+        // return;
+      } else {
+        alert('Houve um erro ao cadastrar o usuário, verifique os dados e tente novamente');
+      }
     }
   };   
 
