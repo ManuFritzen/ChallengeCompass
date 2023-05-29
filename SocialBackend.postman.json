@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "603d6f4a-9e01-49a0-ae4b-832add7d76bf",
+		"name": "SocialBackend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23530815"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n        {\r\n            \"name\": \"Gabriel Medeiros Garcia\",\r\n            \"user\": \"gabrielmedeiros\",\r\n            \"birthdate\": \"1993-10-18\",\r\n            \"email\": \"gabriel.garcia.pb@compasso.com.br\",\r\n            \"password\": \"BolsistasUOL\",\r\n            \"profile_photo\": \"https://rlv.zcache.com.br/adesivo_redondo_cara_de_sorriso_branca_emoji-rb80d4e08c0f74f7780f36f989a0d3563_0ugmp_8byvr_644.jpg\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "list users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3011/api/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "detail user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3011/api/v1/users/1"
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"manufritzen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/users/1"
+					},
+					"response": []
+				},
+				{
+					"name": "remove user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/users/5"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "create post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user\": \"camilafloraobarcellos\",\r\n\"description\": \"Finalmente terminei de ler este livro incrível! 📚\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/posts"
+					},
+					"response": []
+				},
+				{
+					"name": "list posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3011/api/v1/posts"
+					},
+					"response": []
+				},
+				{
+					"name": "detail posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3011/api/v1/posts/3"
+					},
+					"response": []
+				},
+				{
+					"name": "update post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"verão\",\r\n    \"url_image\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/posts/1"
+					},
+					"response": []
+				},
+				{
+					"name": "delete posts",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3011/api/v1/posts/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "create comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"Esse livro é muito bom mesmo!  😍\",\r\n    \"user\": \"analuizalandimirschlinger\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/posts/2/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "list comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3011/api/v1/posts/2/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3011/api/v1/posts/3/comments/2"
+					},
+					"response": []
+				},
+				{
+					"name": "detail comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3011/api/v1/posts/2/comments/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authenticate",
+			"item": [
+				{
+					"name": "authenticate user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"manufritzen\",\r\n    \"password\": \"BolsistasUOL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3011/api/v1/users/login"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
